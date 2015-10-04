@@ -21,7 +21,7 @@ namespace SharpMath.Optimization.DualNumbers
 		/// <summary>
 		/// The original variables.
 		/// </summary>
-		VariableCollection Variables
+		ImmutableVariableCollection Variables
 		{
 			get;
 		}

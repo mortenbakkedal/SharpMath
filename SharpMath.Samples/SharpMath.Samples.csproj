@@ -43,7 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Optimization\Class1.cs" />
+    <Compile Include="Optimization\OptimizerSamples.cs" />
+    <Compile Include="X\Matrix.cs" />
+    <Compile Include="X\Vector.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

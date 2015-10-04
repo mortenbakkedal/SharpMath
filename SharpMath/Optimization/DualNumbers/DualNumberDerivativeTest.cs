@@ -15,7 +15,7 @@ namespace SharpMath.Optimization.DualNumbers
 	public class DualNumberDerivativeTest
 	{
 		private Function function;
-		private VariableCollection variables;
+		private ImmutableVariableCollection variables;
 		private int n;
 		private double tolerance, perturbation;
 		private bool showAll, showNames;
@@ -28,7 +28,7 @@ namespace SharpMath.Optimization.DualNumbers
 		public DualNumberDerivativeTest(Function function, params Variable[] variables)
 		{
 			this.function = function;
-			this.variables = VariableCollection.Create(variables);
+			this.variables = ImmutableVariableCollection.Create(variables);
 
 			n = variables.Length;
 			tolerance = 0.0001;

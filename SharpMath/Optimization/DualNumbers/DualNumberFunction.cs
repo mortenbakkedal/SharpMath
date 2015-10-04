@@ -12,13 +12,13 @@ namespace SharpMath.Optimization.DualNumbers
 	[Serializable]
 	public abstract class DualNumberFunction : Function
 	{
-		private VariableCollection variables;
+		private ImmutableVariableCollection variables;
 		private PointCache<DualNumber> values;
 
 		public DualNumberFunction(Variable[] variables)
 		{
 			// Check for repeated use of the same variable.
-			this.variables = VariableCollection.Create(variables);
+			this.variables = ImmutableVariableCollection.Create(variables);
 
 			// Important to have the values cached to avoid recomputing when the value, the gradient, and the Hessian are requested after each other.
 			values = new PointCache<DualNumber>();
@@ -148,9 +148,9 @@ namespace SharpMath.Optimization.DualNumbers
 		private class DualNumberTransform : IDualNumberTransform
 		{
 			private Dictionary<Variable, DualNumber> transform;
-			private VariableCollection variables;
+			private ImmutableVariableCollection variables;
 
-			public DualNumberTransform(Dictionary<Variable, DualNumber> transform, VariableCollection variables)
+			public DualNumberTransform(Dictionary<Variable, DualNumber> transform, ImmutableVariableCollection variables)
 			{
 				this.transform = transform;
 				this.variables = variables;
@@ -170,7 +170,7 @@ namespace SharpMath.Optimization.DualNumbers
 				}
 			}
 
-			public VariableCollection Variables
+			public ImmutableVariableCollection Variables
 			{
 				get
 				{

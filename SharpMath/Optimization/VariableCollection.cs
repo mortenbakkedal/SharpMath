@@ -2,108 +2,20 @@
 // This code is published under the MIT License.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace SharpMath.Optimization
 {
-	/// <summary>
-	/// Represents a immutable collection of unique variables, i.e. each variable is only allowed to be present once in the collection.
-	/// </summary>
-	[Serializable]
-	public class VariableCollection : IEnumerable<Variable> // Or IReadOnlyList<Variable> in .NET 4.5
+	public class VariableCollection : List<Variable>
 	{
-		private List<Variable> variables;
-		private Dictionary<Variable, int> indices;
-
-		private VariableCollection()
+		public void Add(IEnumerable<Variable> variables)
 		{
-			variables = new List<Variable>();
-			indices = new Dictionary<Variable, int>();
+			AddRange(variables);
 		}
 
-		private VariableCollection(IEnumerable<Variable> variables)
-			: this()
+		public void Add(params Variable[] variables)
 		{
-			foreach (Variable variable in variables)
-			{
-				Add(variable);
-			}
-		}
-
-		/// <summary>
-		/// Creates a new collection of variables. Duplicated variables are ignored.
-		/// </summary>
-		public static VariableCollection Create(IEnumerable<Variable> variables)
-		{
-			return new VariableCollection(variables);
-		}
-
-		/// <summary>
-		/// Creates a new collection of variables. Duplicated variables are ignored.
-		/// </summary>
-		public static VariableCollection Create(params Variable[] variables)
-		{
-			return Create((IEnumerable<Variable>)variables);
-		}
-
-		private void Add(Variable variable)
-		{
-			// Intentionally kept private. The class is immutable by design.
-
-			if (variable == null)
-			{
-				throw new NullReferenceException();
-			}
-
-			if (!Contains(variable))
-			{
-				int index = variables.Count;
-				variables.Add(variable);
-				indices.Add(variable, index);
-			}
-		}
-
-		public bool Contains(Variable variable)
-		{
-			return indices.ContainsKey(variable);
-		}
-
-		public int IndexOf(Variable variable)
-		{
-			int index;
-			if (!indices.TryGetValue(variable, out index))
-			{
-				index = -1;
-			}
-
-			return index;
-		}
-
-		public IEnumerator<Variable> GetEnumerator()
-		{
-			return variables.GetEnumerator();
-		}
-
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return (IEnumerator)GetEnumerator();
-		}
-
-		public Variable this[int index]
-		{
-			get
-			{
-				return variables[index];
-			}
-		}
-
-		public int Count
-		{
-			get
-			{
-				return variables.Count;
-			}
+			Add((IEnumerable<Variable>)variables);
 		}
 	}
 }
