@@ -159,9 +159,9 @@ namespace SharpMath.Optimization.Ipopt.Cureos
 	{
 		#region FIELDS
 
-		private const string IpoptDllName = "Ipopt39";
-		private const string IpoptDllName_32 = "Ipopt39";
-		private const string IpoptDllName_64 = "Ipopt39";
+		private const string IpoptDllName = "Ipopt64";
+		private const string IpoptDllName_32 = "Ipopt64";
+		private const string IpoptDllName_64 = "Ipopt64";
 
 		#endregion
 
