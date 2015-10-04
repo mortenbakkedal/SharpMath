@@ -40,8 +40,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Cureos\IpoptAdapter.cs" />
+    <Compile Include="Cureos\IpoptBoolType.cs" />
+    <Compile Include="Cureos\IpoptIndexStyle.cs" />
+    <Compile Include="Cureos\IpoptProblem.cs" />
+    <Compile Include="IpoptAlgorithmMode.cs" />
+    <Compile Include="IpoptIntegerOption.cs" />
+    <Compile Include="IpoptIntermediateEventArgs.cs" />
+    <Compile Include="IpoptNumberOption.cs" />
+    <Compile Include="IpoptOptimizer.cs" />
+    <Compile Include="IpoptOptimizerResult.cs" />
+    <Compile Include="IpoptOption.cs" />
+    <Compile Include="IpoptOptionCollection.cs" />
+    <Compile Include="IpoptReturnCode.cs" />
+    <Compile Include="IpoptStringOption.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SparseFunction.cs" />
+    <Compile Include="SparseFunctionGradient.cs" />
+    <Compile Include="SparseFunctionHessian.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharpMath\SharpMath.csproj">

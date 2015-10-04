@@ -4,6 +4,7 @@
 using System;
 
 using SharpMath.Optimization;
+using SharpMath.Optimization.Ipopt;
 
 namespace SharpMath.Samples.Optimization
 {
@@ -47,7 +48,7 @@ namespace SharpMath.Samples.Optimization
 			}
 		}
 
-		/*public static void Sample2()
+		public static void Sample2()
 		{
 			// See IpoptHowTo.txt how to get Ipopt to work. It's quite easy and Ipopt is very powerful.
 
@@ -93,6 +94,6 @@ namespace SharpMath.Samples.Optimization
 			Console.WriteLine("f = " + or.OptimalValue);
 			Console.WriteLine("g1 = " + g1.Value(or.OptimalPoint));
 			Console.WriteLine("g2 = " + g2.Value(or.OptimalPoint));
-		}*/
+		}
 	}
 }

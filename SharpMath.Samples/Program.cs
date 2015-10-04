@@ -11,7 +11,21 @@ namespace SharpMath.Samples
 	{
 		public static void Main(string[] args)
 		{
-			OptimizerSamples.Sample1();
+
+			if (IntPtr.Size == 4)
+			{
+				Console.WriteLine("32-bit");
+			}
+			else if (IntPtr.Size == 8)
+			{
+				Console.WriteLine("64-bit");
+			}
+			else
+			{
+				// The future is now!
+			}
+			OptimizerSamples.Sample2();
+
 
 			Console.WriteLine("Done");
 			Console.ReadKey();
