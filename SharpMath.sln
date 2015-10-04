@@ -5,9 +5,9 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMath", "SharpMath\SharpMath.csproj", "{994C2C6D-8B42-4033-92AD-838E86CD9DD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMath.Optimization", "SharpMath.Optimization\SharpMath.Optimization.csproj", "{4AAE9EA7-415B-4326-A2FB-702A17DF03F5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMath.Samples", "SharpMath.Samples\SharpMath.Samples.csproj", "{17BAF5FF-ED99-4511-8EED-048060E0BD5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpMath.Optimization.Ipopt", "SharpMath.Optimization.Ipopt\SharpMath.Optimization.Ipopt.csproj", "{BB89996E-8802-46D1-B16A-D8A55DD64176}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +19,14 @@ Global
 		{994C2C6D-8B42-4033-92AD-838E86CD9DD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{994C2C6D-8B42-4033-92AD-838E86CD9DD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{994C2C6D-8B42-4033-92AD-838E86CD9DD0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4AAE9EA7-415B-4326-A2FB-702A17DF03F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4AAE9EA7-415B-4326-A2FB-702A17DF03F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4AAE9EA7-415B-4326-A2FB-702A17DF03F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4AAE9EA7-415B-4326-A2FB-702A17DF03F5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{17BAF5FF-ED99-4511-8EED-048060E0BD5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{17BAF5FF-ED99-4511-8EED-048060E0BD5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17BAF5FF-ED99-4511-8EED-048060E0BD5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17BAF5FF-ED99-4511-8EED-048060E0BD5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB89996E-8802-46D1-B16A-D8A55DD64176}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB89996E-8802-46D1-B16A-D8A55DD64176}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB89996E-8802-46D1-B16A-D8A55DD64176}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB89996E-8802-46D1-B16A-D8A55DD64176}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
