@@ -43,11 +43,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Optimization\Class1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharpMath.Optimization.Ipopt\SharpMath.Optimization.Ipopt.csproj">
+      <Project>{bb89996e-8802-46d1-b16a-d8a55dd64176}</Project>
+      <Name>SharpMath.Optimization.Ipopt</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SharpMath\SharpMath.csproj">
+      <Project>{994c2c6d-8b42-4033-92ad-838e86cd9dd0}</Project>
+      <Name>SharpMath</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
