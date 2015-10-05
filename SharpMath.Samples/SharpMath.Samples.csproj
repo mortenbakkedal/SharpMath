@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImportIpopt.cs" />
     <Compile Include="Optimization\OptimizerSamples.cs" />
     <Compile Include="X\Matrix.cs" />
     <Compile Include="X\Vector.cs" />

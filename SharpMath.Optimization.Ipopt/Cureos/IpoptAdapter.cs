@@ -157,9 +157,10 @@ namespace SharpMath.Optimization.Ipopt.Cureos
 
 	public static class IpoptAdapter
 	{
+		//FIXME remove
 		#region FIELDS
 
-		private const string IpoptDllName = "Ipopt64";
+		private const string IpoptDllName = "Ipopt64";//FIXME remove
 		private const string IpoptDllName_32 = "Ipopt64";
 		private const string IpoptDllName_64 = "Ipopt64";
 
@@ -214,22 +215,6 @@ namespace SharpMath.Optimization.Ipopt.Cureos
 			{
 				throw new NotSupportedException();
 			}
-		}
-
-		private static class IpoptAdapter32
-		{
-			[DllImport(IpoptDllName_32, CallingConvention = CallingConvention.Cdecl)]
-			public static extern IntPtr CreateIpoptProblem(int n, double[] x_L, double[] x_U, int m, double[] g_L, double[] g_U,
-				int nele_jac, int nele_hess, IpoptIndexStyle index_style,
-				Eval_F_CB eval_f, Eval_G_CB eval_g, Eval_Grad_F_CB eval_grad_f, Eval_Jac_G_CB eval_jac_g, Eval_H_CB eval_h);
-		}
-
-		private static class IpoptAdapter64
-		{
-			[DllImport(IpoptDllName_64, CallingConvention = CallingConvention.Cdecl)]
-			public static extern IntPtr CreateIpoptProblem(int n, double[] x_L, double[] x_U, int m, double[] g_L, double[] g_U,
-				int nele_jac, int nele_hess, IpoptIndexStyle index_style,
-				Eval_F_CB eval_f, Eval_G_CB eval_g, Eval_Grad_F_CB eval_grad_f, Eval_Jac_G_CB eval_jac_g, Eval_H_CB eval_h);
 		}
 
 		/// <summary>
@@ -310,15 +295,8 @@ namespace SharpMath.Optimization.Ipopt.Cureos
 		/// <param name="ipopt_problem">Pointer to Ipopt problem</param>
 		/// <param name="intermediate_cb">Intermediate callback function</param>
 		/// <returns>true if the callback function could be set successfully, false otherwise</returns>
-#if !PRE39
 		[DllImport(IpoptDllName, CallingConvention = CallingConvention.Cdecl)]
 		public static extern IpoptBoolType SetIntermediateCallback(IntPtr ipopt_problem, Intermediate_CB intermediate_cb);
-#else
-		public static IpoptBoolType SetIntermediateCallback(IntPtr ipopt_problem, Intermediate_CB intermediate_cb)
-		{
-			return IpoptBoolType.False;
-		}
-#endif
 
 		/// <summary>
 		/// Function calling the IPOPT optimization algorithm for a problem previously defined with the constructor.
@@ -336,6 +314,26 @@ namespace SharpMath.Optimization.Ipopt.Cureos
 		[DllImport(IpoptDllName, CallingConvention = CallingConvention.Cdecl)]
 		public static extern IpoptReturnCode IpoptSolve(IntPtr ipopt_problem, double[] x, double[] g,
 			out double obj_val, double[] mult_g, double[] mult_x_L, double[] mult_x_U, IntPtr p_user_data);
+
+		private static class IpoptAdapter32
+		{
+			private const string ipoptLibraryName = "Ipopt32";
+
+			[DllImport(ipoptLibraryName, CallingConvention = CallingConvention.Cdecl)]
+			public static extern IntPtr CreateIpoptProblem(int n, double[] x_L, double[] x_U, int m, double[] g_L, double[] g_U,
+				int nele_jac, int nele_hess, IpoptIndexStyle index_style,
+				Eval_F_CB eval_f, Eval_G_CB eval_g, Eval_Grad_F_CB eval_grad_f, Eval_Jac_G_CB eval_jac_g, Eval_H_CB eval_h);
+		}
+
+		private static class IpoptAdapter64
+		{
+			private const string ipoptLibraryName = "Ipopt64";
+
+			[DllImport(ipoptLibraryName, CallingConvention = CallingConvention.Cdecl)]
+			public static extern IntPtr CreateIpoptProblem(int n, double[] x_L, double[] x_U, int m, double[] g_L, double[] g_U,
+				int nele_jac, int nele_hess, IpoptIndexStyle index_style,
+				Eval_F_CB eval_f, Eval_G_CB eval_g, Eval_Grad_F_CB eval_grad_f, Eval_Jac_G_CB eval_jac_g, Eval_H_CB eval_h);
+		}
 
 		#endregion
 	}
