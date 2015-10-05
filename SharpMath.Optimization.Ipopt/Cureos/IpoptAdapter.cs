@@ -157,15 +157,6 @@ namespace SharpMath.Optimization.Ipopt.Cureos
 
 	public static class IpoptAdapter
 	{
-		//FIXME remove
-		#region FIELDS
-
-		private const string IpoptDllName = "Ipopt64";//FIXME remove
-		private const string IpoptDllName_32 = "Ipopt64";
-		private const string IpoptDllName_64 = "Ipopt64";
-
-		#endregion
-
 		#region P/INVOKE METHODS
 
 		/// <summary>
@@ -221,8 +212,21 @@ namespace SharpMath.Optimization.Ipopt.Cureos
 		/// Method for freeing a previously created IpoptProblem.  After freeing an IpoptProblem, it cannot be used anymore.
 		/// </summary>
 		/// <param name="ipopt_problem">Pointer to Ipopt problem.</param>
-		[DllImport(IpoptDllName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern void FreeIpoptProblem(IntPtr ipopt_problem);
+		public static void FreeIpoptProblem(IntPtr ipopt_problem)
+		{
+			if (IntPtr.Size == 4)
+			{
+				IpoptAdapter32.FreeIpoptProblem(ipopt_problem);
+			}
+			else if (IntPtr.Size == 8)
+			{
+				IpoptAdapter64.FreeIpoptProblem(ipopt_problem);
+			}
+			else
+			{
+				throw new NotSupportedException();
+			}
+		}
 
 		/// <summary>
 		/// Function for adding a string option.
@@ -231,8 +235,21 @@ namespace SharpMath.Optimization.Ipopt.Cureos
 		/// <param name="keyword">Name of option</param>
 		/// <param name="val">String value of option</param>
 		/// <returns>true if setting option succeeded, false if the option could not be set (e.g., if keyword is unknown)</returns>
-		[DllImport(IpoptDllName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern IpoptBoolType AddIpoptStrOption(IntPtr ipopt_problem, string keyword, string val);
+		public static IpoptBoolType AddIpoptStrOption(IntPtr ipopt_problem, string keyword, string val)
+		{
+			if (IntPtr.Size == 4)
+			{
+				return IpoptAdapter32.AddIpoptStrOption(ipopt_problem, keyword, val);
+			}
+			else if (IntPtr.Size == 8)
+			{
+				return IpoptAdapter64.AddIpoptStrOption(ipopt_problem, keyword, val);
+			}
+			else
+			{
+				throw new NotSupportedException();
+			}
+		}
 
 		/// <summary>
 		/// Function for adding a floating point option.
@@ -241,8 +258,21 @@ namespace SharpMath.Optimization.Ipopt.Cureos
 		/// <param name="keyword">Name of option</param>
 		/// <param name="val">Floating point value of option</param>
 		/// <returns>true if setting option succeeded, false if the option could not be set (e.g., if keyword is unknown)</returns>
-		[DllImport(IpoptDllName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern IpoptBoolType AddIpoptNumOption(IntPtr ipopt_problem, string keyword, double val);
+		public static IpoptBoolType AddIpoptNumOption(IntPtr ipopt_problem, string keyword, double val)
+		{
+			if (IntPtr.Size == 4)
+			{
+				return IpoptAdapter32.AddIpoptNumOption(ipopt_problem, keyword, val);
+			}
+			else if (IntPtr.Size == 8)
+			{
+				return IpoptAdapter64.AddIpoptNumOption(ipopt_problem, keyword, val);
+			}
+			else
+			{
+				throw new NotSupportedException();
+			}
+		}
 
 		/// <summary>
 		/// Function for adding an integer option.
@@ -251,8 +281,21 @@ namespace SharpMath.Optimization.Ipopt.Cureos
 		/// <param name="keyword">Name of option</param>
 		/// <param name="val">Integer value of option</param>
 		/// <returns>true if setting option succeeded, false if the option could not be set (e.g., if keyword is unknown)</returns>
-		[DllImport(IpoptDllName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern IpoptBoolType AddIpoptIntOption(IntPtr ipopt_problem, string keyword, int val);
+		public static IpoptBoolType AddIpoptIntOption(IntPtr ipopt_problem, string keyword, int val)
+		{
+			if (IntPtr.Size == 4)
+			{
+				return IpoptAdapter32.AddIpoptIntOption(ipopt_problem, keyword, val);
+			}
+			else if (IntPtr.Size == 8)
+			{
+				return IpoptAdapter64.AddIpoptIntOption(ipopt_problem, keyword, val);
+			}
+			else
+			{
+				throw new NotSupportedException();
+			}
+		}
 
 #if !SILVERLIGHT
 		/// <summary>
@@ -262,8 +305,21 @@ namespace SharpMath.Optimization.Ipopt.Cureos
 		/// <param name="file_name">Name of output file</param>
 		/// <param name="print_level">Level of printed information</param>
 		/// <returns>False, if there was a problem opening the file.</returns>
-		[DllImport(IpoptDllName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern IpoptBoolType OpenIpoptOutputFile(IntPtr ipopt_problem, string file_name, int print_level);
+		public static IpoptBoolType OpenIpoptOutputFile(IntPtr ipopt_problem, string file_name, int print_level)
+		{
+			if (IntPtr.Size == 4)
+			{
+				return IpoptAdapter32.OpenIpoptOutputFile(ipopt_problem, file_name, print_level);
+            }
+			else if (IntPtr.Size == 8)
+			{
+				return IpoptAdapter64.OpenIpoptOutputFile(ipopt_problem, file_name, print_level);
+			}
+			else
+			{
+				throw new NotSupportedException();
+			}
+		}
 #endif
 
 		/// <summary>
@@ -277,9 +333,22 @@ namespace SharpMath.Optimization.Ipopt.Cureos
 		/// <param name="x_scaling">Scaling of the problem variables</param>
 		/// <param name="g_scaling">Scaling of the constraint functions</param>
 		/// <returns>true if scaling succeeded, false otherwise</returns>
-		[DllImport(IpoptDllName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern IpoptBoolType SetIpoptProblemScaling(
-			IntPtr ipopt_problem, double obj_scaling, double[] x_scaling, double[] g_scaling);
+		public static IpoptBoolType SetIpoptProblemScaling(
+			IntPtr ipopt_problem, double obj_scaling, double[] x_scaling, double[] g_scaling)
+		{
+			if (IntPtr.Size == 4)
+			{
+				return IpoptAdapter32.SetIpoptProblemScaling(ipopt_problem, obj_scaling, x_scaling, g_scaling);
+            }
+			else if (IntPtr.Size == 8)
+			{
+				return IpoptAdapter64.SetIpoptProblemScaling(ipopt_problem, obj_scaling, x_scaling, g_scaling);
+			}
+			else
+			{
+				throw new NotSupportedException();
+			}
+		}
 
 		/// <summary>
 		/// Setting a callback function for the "intermediate callback"
@@ -295,8 +364,21 @@ namespace SharpMath.Optimization.Ipopt.Cureos
 		/// <param name="ipopt_problem">Pointer to Ipopt problem</param>
 		/// <param name="intermediate_cb">Intermediate callback function</param>
 		/// <returns>true if the callback function could be set successfully, false otherwise</returns>
-		[DllImport(IpoptDllName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern IpoptBoolType SetIntermediateCallback(IntPtr ipopt_problem, Intermediate_CB intermediate_cb);
+		public static IpoptBoolType SetIntermediateCallback(IntPtr ipopt_problem, Intermediate_CB intermediate_cb)
+		{
+			if (IntPtr.Size == 4)
+			{
+				return IpoptAdapter32.SetIntermediateCallback(ipopt_problem, intermediate_cb);
+            }
+			else if (IntPtr.Size == 8)
+			{
+				return IpoptAdapter64.SetIntermediateCallback(ipopt_problem, intermediate_cb);
+			}
+			else
+			{
+				throw new NotSupportedException();
+			}
+		}
 
 		/// <summary>
 		/// Function calling the IPOPT optimization algorithm for a problem previously defined with the constructor.
@@ -311,9 +393,22 @@ namespace SharpMath.Optimization.Ipopt.Cureos
 		/// <param name="mult_x_U">Final multipliers for upper variable bounds (output only - ignored if null on input)</param>
 		/// <param name="p_user_data">Optional pointer to user data</param>
 		/// <returns>Outcome of the optimization procedure (e.g., success, failure etc).</returns>
-		[DllImport(IpoptDllName, CallingConvention = CallingConvention.Cdecl)]
-		public static extern IpoptReturnCode IpoptSolve(IntPtr ipopt_problem, double[] x, double[] g,
-			out double obj_val, double[] mult_g, double[] mult_x_L, double[] mult_x_U, IntPtr p_user_data);
+		public static IpoptReturnCode IpoptSolve(IntPtr ipopt_problem, double[] x, double[] g,
+			out double obj_val, double[] mult_g, double[] mult_x_L, double[] mult_x_U, IntPtr p_user_data)
+		{
+			if (IntPtr.Size == 4)
+			{
+				return IpoptAdapter32.IpoptSolve(ipopt_problem, x, g, out obj_val, mult_g, mult_x_L, mult_x_U, p_user_data);
+			}
+			else if (IntPtr.Size == 8)
+			{
+				return IpoptAdapter64.IpoptSolve(ipopt_problem, x, g, out obj_val, mult_g, mult_x_L, mult_x_U, p_user_data);
+			}
+			else
+			{
+				throw new NotSupportedException();
+			}
+		}
 
 		private static class IpoptAdapter32
 		{
@@ -323,6 +418,32 @@ namespace SharpMath.Optimization.Ipopt.Cureos
 			public static extern IntPtr CreateIpoptProblem(int n, double[] x_L, double[] x_U, int m, double[] g_L, double[] g_U,
 				int nele_jac, int nele_hess, IpoptIndexStyle index_style,
 				Eval_F_CB eval_f, Eval_G_CB eval_g, Eval_Grad_F_CB eval_grad_f, Eval_Jac_G_CB eval_jac_g, Eval_H_CB eval_h);
+
+			[DllImport(ipoptLibraryName, CallingConvention = CallingConvention.Cdecl)]
+			public static extern void FreeIpoptProblem(IntPtr ipopt_problem);
+
+			[DllImport(ipoptLibraryName, CallingConvention = CallingConvention.Cdecl)]
+			public static extern IpoptBoolType AddIpoptStrOption(IntPtr ipopt_problem, string keyword, string val);
+
+			[DllImport(ipoptLibraryName, CallingConvention = CallingConvention.Cdecl)]
+			public static extern IpoptBoolType AddIpoptNumOption(IntPtr ipopt_problem, string keyword, double val);
+
+			[DllImport(ipoptLibraryName, CallingConvention = CallingConvention.Cdecl)]
+			public static extern IpoptBoolType AddIpoptIntOption(IntPtr ipopt_problem, string keyword, int val);
+
+			[DllImport(ipoptLibraryName, CallingConvention = CallingConvention.Cdecl)]
+			public static extern IpoptBoolType OpenIpoptOutputFile(IntPtr ipopt_problem, string file_name, int print_level);
+
+			[DllImport(ipoptLibraryName, CallingConvention = CallingConvention.Cdecl)]
+			public static extern IpoptBoolType SetIpoptProblemScaling(
+				IntPtr ipopt_problem, double obj_scaling, double[] x_scaling, double[] g_scaling);
+
+			[DllImport(ipoptLibraryName, CallingConvention = CallingConvention.Cdecl)]
+			public static extern IpoptBoolType SetIntermediateCallback(IntPtr ipopt_problem, Intermediate_CB intermediate_cb);
+
+			[DllImport(ipoptLibraryName, CallingConvention = CallingConvention.Cdecl)]
+			public static extern IpoptReturnCode IpoptSolve(IntPtr ipopt_problem, double[] x, double[] g,
+				out double obj_val, double[] mult_g, double[] mult_x_L, double[] mult_x_U, IntPtr p_user_data);
 		}
 
 		private static class IpoptAdapter64
@@ -333,6 +454,32 @@ namespace SharpMath.Optimization.Ipopt.Cureos
 			public static extern IntPtr CreateIpoptProblem(int n, double[] x_L, double[] x_U, int m, double[] g_L, double[] g_U,
 				int nele_jac, int nele_hess, IpoptIndexStyle index_style,
 				Eval_F_CB eval_f, Eval_G_CB eval_g, Eval_Grad_F_CB eval_grad_f, Eval_Jac_G_CB eval_jac_g, Eval_H_CB eval_h);
+
+			[DllImport(ipoptLibraryName, CallingConvention = CallingConvention.Cdecl)]
+			public static extern void FreeIpoptProblem(IntPtr ipopt_problem);
+
+			[DllImport(ipoptLibraryName, CallingConvention = CallingConvention.Cdecl)]
+			public static extern IpoptBoolType AddIpoptStrOption(IntPtr ipopt_problem, string keyword, string val);
+
+			[DllImport(ipoptLibraryName, CallingConvention = CallingConvention.Cdecl)]
+			public static extern IpoptBoolType AddIpoptNumOption(IntPtr ipopt_problem, string keyword, double val);
+
+			[DllImport(ipoptLibraryName, CallingConvention = CallingConvention.Cdecl)]
+			public static extern IpoptBoolType AddIpoptIntOption(IntPtr ipopt_problem, string keyword, int val);
+
+			[DllImport(ipoptLibraryName, CallingConvention = CallingConvention.Cdecl)]
+			public static extern IpoptBoolType OpenIpoptOutputFile(IntPtr ipopt_problem, string file_name, int print_level);
+
+			[DllImport(ipoptLibraryName, CallingConvention = CallingConvention.Cdecl)]
+			public static extern IpoptBoolType SetIpoptProblemScaling(
+				IntPtr ipopt_problem, double obj_scaling, double[] x_scaling, double[] g_scaling);
+
+			[DllImport(ipoptLibraryName, CallingConvention = CallingConvention.Cdecl)]
+			public static extern IpoptBoolType SetIntermediateCallback(IntPtr ipopt_problem, Intermediate_CB intermediate_cb);
+
+			[DllImport(ipoptLibraryName, CallingConvention = CallingConvention.Cdecl)]
+			public static extern IpoptReturnCode IpoptSolve(IntPtr ipopt_problem, double[] x, double[] g,
+				out double obj_val, double[] mult_g, double[] mult_x_L, double[] mult_x_U, IntPtr p_user_data);
 		}
 
 		#endregion

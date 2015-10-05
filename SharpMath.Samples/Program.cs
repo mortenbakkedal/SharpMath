@@ -11,8 +11,8 @@ namespace SharpMath.Samples
 	{
 		public static void Main(string[] args)
 		{
-			ImportIpopt.Import();
-			/*OptimizerSamples.Sample2();
+			//ImportIpopt.Import();
+			OptimizerSamples.Sample2();
 
 			if (IntPtr.Size == 4)
 			{
@@ -25,12 +25,7 @@ namespace SharpMath.Samples
 			else
 			{
 				// The future is now!
-			}*/
-
-			/*string s = System.IO.File.ReadAllText(@"D:\Udvikling\SharpMath\SharpMath.Optimization.Ipopt\Ipopt39_ORG.dll", System.Text.Encoding.GetEncoding(850));
-			s = s.Replace("IpOptFSS39", "IpOptFSS64");
-			System.IO.File.WriteAllText(@"D:\Udvikling\SharpMath\SharpMath.Optimization.Ipopt\Ipopt64.dll", s, System.Text.Encoding.GetEncoding(850));*/
-
+			}
 
 			Console.WriteLine("Done");
 			Console.ReadKey();
