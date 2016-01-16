@@ -26,6 +26,8 @@ http://www.fsf.org/licensing/licenses
 
 using System;
 
+#pragma warning disable
+
 namespace SharpMath.LinearAlgebra.AlgLib
 {
     internal class matinv
@@ -322,13 +324,13 @@ namespace SharpMath.LinearAlgebra.AlgLib
         {
             int i = 0;
             int j = 0;
-			//int k = 0;
-			//double v = 0;
-			//double ajj = 0;
-			//double aii = 0;
+            int k = 0;
+            double v = 0;
+            double ajj = 0;
+            double aii = 0;
             double[] tmp = new double[0];
-			//int info2 = 0;
-			//matinvreport rep2 = new matinvreport();
+            int info2 = 0;
+            matinvreport rep2 = new matinvreport();
 
             if (n < 1)
             {
@@ -456,8 +458,8 @@ namespace SharpMath.LinearAlgebra.AlgLib
         {
             int i = 0;
             int j = 0;
-			//int info2 = 0;
-			//matinvreport rep2 = new matinvreport();
+            int info2 = 0;
+            matinvreport rep2 = new matinvreport();
             AP.Complex[] tmp = new AP.Complex[0];
             AP.Complex v = 0;
 
@@ -1128,12 +1130,12 @@ namespace SharpMath.LinearAlgebra.AlgLib
             ref matinvreport rep)
         {
             int i = 0;
-			//int iws = 0;
+            int iws = 0;
             int j = 0;
-			//int jb = 0;
-			//int jj = 0;
-			//int jp = 0;
-			//int k = 0;
+            int jb = 0;
+            int jj = 0;
+            int jp = 0;
+            int k = 0;
             double v = 0;
             int n1 = 0;
             int n2 = 0;
@@ -1268,12 +1270,12 @@ namespace SharpMath.LinearAlgebra.AlgLib
             ref matinvreport rep)
         {
             int i = 0;
-			//int iws = 0;
+            int iws = 0;
             int j = 0;
-			//int jb = 0;
-			//int jj = 0;
-			//int jp = 0;
-			//int k = 0;
+            int jb = 0;
+            int jj = 0;
+            int jp = 0;
+            int k = 0;
             AP.Complex v = 0;
             int n1 = 0;
             int n2 = 0;

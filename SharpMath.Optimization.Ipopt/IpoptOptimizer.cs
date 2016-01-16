@@ -39,9 +39,17 @@ namespace SharpMath.Optimization.Ipopt
 		/// <summary>
 		/// Run the optimizer with the specified initial values. Returns additional Ipopt related convergence status.
 		/// </summary>
-		public IpoptOptimizerResult RunIpopt(params VariableAssignment[] initialAssignments)
+		public IpoptOptimizerResult RunIpopt(IEnumerable<VariableAssignment> initialAssignments)
 		{
 			return RunIpopt(new Point(initialAssignments));
+		}
+
+		/// <summary>
+		/// Run the optimizer with the specified initial values. Returns additional Ipopt related convergence status.
+		/// </summary>
+		public IpoptOptimizerResult RunIpopt(params VariableAssignment[] initialAssignments)
+		{
+			return RunIpopt((IEnumerable<VariableAssignment>)initialAssignments);
 		}
 
 		/// <summary>

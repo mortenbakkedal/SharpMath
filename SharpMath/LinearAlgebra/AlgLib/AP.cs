@@ -18,6 +18,9 @@ http://www.fsf.org/licensing/licenses
 
 >>> END OF LICENSE >>>
 *************************************************************************/
+
+#pragma warning disable
+
 namespace SharpMath.LinearAlgebra.AlgLib
 {
     internal class AP
@@ -130,11 +133,11 @@ namespace SharpMath.LinearAlgebra.AlgLib
         ********************************************************************/
         public struct rcommstate
         {
-			//public int stage;
-			//public int[] ia;
-			//public bool[] ba;
-			//public double[] ra;
-			//public AP.Complex[] ca;
+            public int stage;
+            public int[] ia;
+            public bool[] ba;
+            public double[] ra;
+            public AP.Complex[] ca;
         };
 
         /********************************************************************

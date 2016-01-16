@@ -26,6 +26,12 @@ namespace SharpMath.LinearAlgebra
 			a = matrix.ToArray();
 			pivots = new int[0];
 
+			if (n == 0 && m == 0)
+			{
+				// Ignore degenerate case.
+				return;
+			}
+
 			trfac.rmatrixlu(ref a, m, n, ref pivots);
 		}
 
@@ -71,6 +77,12 @@ namespace SharpMath.LinearAlgebra
 				throw new ArgumentException("The matrix is not a square matrix.");
 			}
 
+			if (n == 0 && m == 0)
+			{
+				// Handle degenerate case.
+				return 0.0;
+			}
+
 			return matdet.rmatrixludet(ref a, ref pivots, n);
 		}
 
@@ -79,6 +91,13 @@ namespace SharpMath.LinearAlgebra
 		/// </summary>
 		public bool TryInverse(out Matrix inverse)
 		{
+			if (n == 0 && m == 0)
+			{
+				// Handle degenerate case.
+				inverse = Matrix.Zero(0, 0);
+				return true;
+			}
+
 			if (n == m)
 			{
 				double[,] x = (double[,])a.Clone();

@@ -12,7 +12,7 @@ namespace SharpMath.Optimization.DualNumbers
 	/// </summary>
 	[Serializable]
 	[DebuggerStepThrough]
-	[DebuggerDisplay("{Value}")]
+	[DebuggerDisplay("{DebuggerDisplay}")]
 	public sealed class DualNumber
 	{
 		private static DualNumber zero;
@@ -284,6 +284,23 @@ namespace SharpMath.Optimization.DualNumbers
 					}
 				}
 			}
+		}
+
+		public override string ToString()
+		{
+			string s = string.Format("Value = {0}", value);
+
+			if (gradientArray != null)
+			{
+				s += string.Format(", Gradient = {0}", Gradient);
+	
+				if (hessianArray != null)
+				{
+					s += string.Format(", Hessian = {0}", Hessian);
+				}
+			}
+
+			return s;
 		}
 
 		public double[] ToGradientArray()
@@ -591,6 +608,15 @@ namespace SharpMath.Optimization.DualNumbers
 				}
 
 				return hessian;
+			}
+		}
+
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		private string DebuggerDisplay
+		{
+			get
+			{
+				return ToString();
 			}
 		}
 	}

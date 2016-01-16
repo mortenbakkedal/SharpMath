@@ -26,6 +26,8 @@ http://www.fsf.org/licensing/licenses
 
 using System;
 
+#pragma warning disable
+
 namespace SharpMath.LinearAlgebra.AlgLib
 {
     internal class rcond
@@ -934,7 +936,7 @@ namespace SharpMath.LinearAlgebra.AlgLib
             double[] ev = new double[0];
             int[] iwork = new int[0];
             double[] tmp = new double[0];
-			//double v = 0;
+            double v = 0;
             int i = 0;
             int j = 0;
             int kase = 0;
@@ -944,9 +946,9 @@ namespace SharpMath.LinearAlgebra.AlgLib
             double ainvnm = 0;
             double maxgrowth = 0;
             double s = 0;
-			//bool mupper = new bool();
-			//bool mtrans = new bool();
-			//bool munit = new bool();
+            bool mupper = new bool();
+            bool mtrans = new bool();
+            bool munit = new bool();
 
 
             //
@@ -965,9 +967,9 @@ namespace SharpMath.LinearAlgebra.AlgLib
             {
                 kase1 = 2;
             }
-			//mupper = true;
-			//mtrans = true;
-			//munit = true;
+            mupper = true;
+            mtrans = true;
+            munit = true;
             iwork = new int[n + 1];
             tmp = new double[n];
 
@@ -1838,7 +1840,7 @@ namespace SharpMath.LinearAlgebra.AlgLib
             double su = 0;
             double sl = 0;
             bool mupper = new bool();
-			//bool mtrans = new bool();
+            bool mtrans = new bool();
             bool munit = new bool();
             int i_ = 0;
             int i1_ = 0;
@@ -1861,7 +1863,7 @@ namespace SharpMath.LinearAlgebra.AlgLib
                 kase1 = 2;
             }
             mupper = true;
-            //mtrans = true;
+            mtrans = true;
             munit = true;
             iwork = new int[n + 1];
             tmp = new double[n];

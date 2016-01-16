@@ -11,7 +11,7 @@ namespace SharpMath.Optimization
 	/// Represents a immutable collection of unique variables, i.e. each variable is only allowed to be present once in the collection.
 	/// </summary>
 	[Serializable]
-	public class ImmutableVariableCollection : IEnumerable<Variable> // Or IReadOnlyList<Variable> in .NET 4.5
+	public class ImmutableVariableCollection : IEnumerable<Variable> // Or IImmutableList<Variable> in .NET 4.5
 	{
 		private List<Variable> variables;
 		private Dictionary<Variable, int> indices;

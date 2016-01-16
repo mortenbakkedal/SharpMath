@@ -26,6 +26,8 @@ http://www.fsf.org/licensing/licenses
 
 using System;
 
+#pragma warning disable
+
 namespace SharpMath.LinearAlgebra.AlgLib
 {
     internal class trfac
@@ -1484,9 +1486,9 @@ namespace SharpMath.LinearAlgebra.AlgLib
             bool result = new bool();
             int i = 0;
             int j = 0;
-			//int k = 0;
-			//int j1 = 0;
-			//int j2 = 0;
+            int k = 0;
+            int j1 = 0;
+            int j2 = 0;
             double ajj = 0;
             AP.Complex v = 0;
             double r = 0;
@@ -1637,9 +1639,9 @@ namespace SharpMath.LinearAlgebra.AlgLib
             bool result = new bool();
             int i = 0;
             int j = 0;
-			//int k = 0;
-			//int j1 = 0;
-			//int j2 = 0;
+            int k = 0;
+            int j1 = 0;
+            int j2 = 0;
             double ajj = 0;
             double v = 0;
             double r = 0;

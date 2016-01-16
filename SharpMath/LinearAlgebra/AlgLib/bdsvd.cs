@@ -26,6 +26,8 @@ http://www.fsf.org/licensing/licenses
 
 using System;
 
+#pragma warning disable
+
 namespace SharpMath.LinearAlgebra.AlgLib
 {
     internal class bdsvd
@@ -244,7 +246,7 @@ namespace SharpMath.LinearAlgebra.AlgLib
             double[] vttemp = new double[0];
             double[] ctemp = new double[0];
             double[] etemp = new double[0];
-			//bool rightside = new bool();
+            bool rightside = new bool();
             bool fwddir = new bool();
             double tmp = 0;
             int mm1 = 0;
@@ -292,7 +294,7 @@ namespace SharpMath.LinearAlgebra.AlgLib
             vttemp = new double[vend + 1];
             ctemp = new double[cend + 1];
             maxitr = 12;
-			//rightside = true;
+            rightside = true;
             fwddir = true;
 
             //

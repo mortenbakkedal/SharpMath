@@ -64,6 +64,7 @@ namespace SharpMath.Optimization
 			private set;
 		}
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		private string DebuggerDisplay
 		{
 			get

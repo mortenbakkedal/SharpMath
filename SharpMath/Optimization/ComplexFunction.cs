@@ -3,8 +3,6 @@
 
 using System;
 
-using FuncLib.Mathematics;
-
 namespace SharpMath.Optimization
 {
 	[Serializable]

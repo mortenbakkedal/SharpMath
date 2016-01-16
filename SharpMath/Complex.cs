@@ -1,11 +1,11 @@
-// Copyright (c) 2014 Morten Bakkedal
+﻿// Copyright (c) 2012 Morten Bakkedal
 // This code is published under the MIT License.
 
 using System;
 using System.Diagnostics;
 using System.Globalization;
 
-namespace FuncLib.Mathematics
+namespace SharpMath
 {
 	[Serializable]
 	[DebuggerStepThrough]
@@ -161,6 +161,11 @@ namespace FuncLib.Mathematics
 		public static double Im(Complex z)
 		{
 			return z.im;
+		}
+
+		public static Complex Polar(double r, double theta)
+		{
+			return new Complex(r * Math.Cos(theta), r * Math.Sin(theta));
 		}
 
 		public static Complex Conjugate(Complex z)

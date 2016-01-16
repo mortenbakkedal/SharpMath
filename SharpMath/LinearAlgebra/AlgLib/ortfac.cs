@@ -24,6 +24,8 @@ http://www.fsf.org/licensing/licenses
 
 using System;
 
+#pragma warning disable
+
 namespace SharpMath.LinearAlgebra.AlgLib
 {
     internal class ortfac
@@ -79,9 +81,9 @@ namespace SharpMath.LinearAlgebra.AlgLib
             int blocksize = 0;
             int rowscount = 0;
             int i = 0;
-			//int j = 0;
-			//int k = 0;
-			//double v = 0;
+            int j = 0;
+            int k = 0;
+            double v = 0;
             int i_ = 0;
             int i1_ = 0;
 
@@ -235,9 +237,9 @@ namespace SharpMath.LinearAlgebra.AlgLib
             int blocksize = 0;
             int columnscount = 0;
             int i = 0;
-			//int j = 0;
-			//int k = 0;
-			//double v = 0;
+            int j = 0;
+            int k = 0;
+            double v = 0;
             int i_ = 0;
             int i1_ = 0;
 
@@ -376,8 +378,8 @@ namespace SharpMath.LinearAlgebra.AlgLib
             int blocksize = 0;
             int rowscount = 0;
             int i = 0;
-			//int j = 0;
-			//int k = 0;
+            int j = 0;
+            int k = 0;
             AP.Complex v = 0;
             int i_ = 0;
             int i1_ = 0;
@@ -518,8 +520,8 @@ namespace SharpMath.LinearAlgebra.AlgLib
             int blocksize = 0;
             int columnscount = 0;
             int i = 0;
-			//int j = 0;
-			//int k = 0;
+            int j = 0;
+            int k = 0;
             AP.Complex v = 0;
             int i_ = 0;
             int i1_ = 0;
@@ -663,8 +665,8 @@ namespace SharpMath.LinearAlgebra.AlgLib
             int rowscount = 0;
             int i = 0;
             int j = 0;
-			//int k = 0;
-			//double v = 0;
+            int k = 0;
+            double v = 0;
             int i_ = 0;
             int i1_ = 0;
 
@@ -864,8 +866,8 @@ namespace SharpMath.LinearAlgebra.AlgLib
             int columnscount = 0;
             int i = 0;
             int j = 0;
-			//int k = 0;
-			//double v = 0;
+            int k = 0;
+            double v = 0;
             int i_ = 0;
             int i1_ = 0;
 
@@ -1065,7 +1067,7 @@ namespace SharpMath.LinearAlgebra.AlgLib
             int rowscount = 0;
             int i = 0;
             int j = 0;
-			//int k = 0;
+            int k = 0;
             AP.Complex v = 0;
             int i_ = 0;
             int i1_ = 0;
@@ -1269,7 +1271,7 @@ namespace SharpMath.LinearAlgebra.AlgLib
             int columnscount = 0;
             int i = 0;
             int j = 0;
-			//int k = 0;
+            int k = 0;
             AP.Complex v = 0;
             int i_ = 0;
             int i1_ = 0;
