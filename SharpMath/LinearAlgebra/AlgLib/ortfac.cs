@@ -1,3 +1,4 @@
+// SharpMath - C# Mathematical Library
 /*************************************************************************
 Copyright (c) 2005-2010 Sergey Bochkanov.
 

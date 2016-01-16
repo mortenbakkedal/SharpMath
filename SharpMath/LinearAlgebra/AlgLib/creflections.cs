@@ -1,3 +1,4 @@
+// SharpMath - C# Mathematical Library
 /*************************************************************************
 Copyright (c) 1992-2007 The University of Tennessee.  All rights reserved.
 
@@ -58,7 +59,7 @@ namespace SharpMath.LinearAlgebra.AlgLib
             Tau -   scalar value Tau.
 
         This subroutine is the modification of CLARFG subroutines  from the LAPACK
-        library. It has similar functionality except for the fact that it  doesn’t
+        library. It has similar functionality except for the fact that it  doesnï¿½t
         handle errors when intermediate results cause an overflow.
 
           -- LAPACK auxiliary routine (version 3.0) --

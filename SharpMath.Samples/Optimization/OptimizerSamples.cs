@@ -1,4 +1,5 @@
-﻿// Copyright (c) 2015 Morten Bakkedal
+// SharpMath - C# Mathematical Library
+// Copyright (c) 2015 Morten Bakkedal
 // This code is published under the MIT License.
 
 using System;

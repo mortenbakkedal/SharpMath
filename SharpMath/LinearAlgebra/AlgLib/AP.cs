@@ -1,3 +1,4 @@
+// SharpMath - C# Mathematical Library
 /*************************************************************************
 AP library
 Copyright (c) 2003-2009 Sergey Bochkanov (ALGLIB project).

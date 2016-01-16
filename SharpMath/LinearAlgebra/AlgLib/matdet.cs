@@ -1,3 +1,4 @@
+// SharpMath - C# Mathematical Library
 /*************************************************************************
 Copyright (c) 2005-2007, Sergey Bochkanov (ALGLIB project).
 
@@ -163,7 +164,7 @@ namespace SharpMath.LinearAlgebra.AlgLib
             N   -   size of matrix A.
 
         As the determinant is equal to the product of squares of diagonal elements,
-        it’s not necessary to specify which triangle - lower or upper - the matrix
+        itï¿½s not necessary to specify which triangle - lower or upper - the matrix
         is stored in.
 
         Result:
@@ -194,7 +195,7 @@ namespace SharpMath.LinearAlgebra.AlgLib
             A       -   matrix. Array with elements [0..N-1, 0..N-1].
             N       -   size of matrix A.
             IsUpper -   if IsUpper = True, then the symmetric matrix A is given by
-                        its upper triangle, and the lower triangle isn’t used by
+                        its upper triangle, and the lower triangle isnï¿½t used by
                         subroutine. Similarly, if IsUpper = False, then A is given
                         by its lower triangle.
 

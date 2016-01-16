@@ -1,3 +1,4 @@
+// SharpMath - C# Mathematical Library
 /*************************************************************************
 Copyright (c) 1992-2007 The University of Tennessee. All rights reserved.
 
@@ -299,10 +300,10 @@ namespace SharpMath.LinearAlgebra.AlgLib
 
         Input parameters:
             A       -   Cholesky decomposition of the matrix to be inverted:
-                        A=U’*U or A = L*L'.
+                        A=Uï¿½*U or A = L*L'.
                         Output of  SPDMatrixCholesky subroutine.
             N       -   size of matrix A.
-            IsUpper –   storage format.
+            IsUpper ï¿½   storage format.
                         If IsUpper = True, then matrix A is given as A = U'*U
                         (matrix contains upper triangle).
                         Similarly, if IsUpper = False, then A = L*L'.
@@ -433,10 +434,10 @@ namespace SharpMath.LinearAlgebra.AlgLib
 
         Input parameters:
             A       -   Cholesky decomposition of the matrix to be inverted:
-                        A=U’*U or A = L*L'.
+                        A=Uï¿½*U or A = L*L'.
                         Output of  HPDMatrixCholesky subroutine.
             N       -   size of matrix A.
-            IsUpper –   storage format.
+            IsUpper ï¿½   storage format.
                         If IsUpper = True, then matrix A is given as A = U'*U
                         (matrix contains upper triangle).
                         Similarly, if IsUpper = False, then A = L*L'.

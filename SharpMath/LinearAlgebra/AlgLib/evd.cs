@@ -1,3 +1,4 @@
+// SharpMath - C# Mathematical Library
 /*************************************************************************
 Copyright (c) 2005-2007, Sergey Bochkanov (ALGLIB project).
 
@@ -45,7 +46,7 @@ namespace SharpMath.LinearAlgebra.AlgLib
             D       -   eigenvalues in ascending order.
                         Array whose index ranges within [0..N-1].
             Z       -   if ZNeeded is equal to:
-                         * 0, Z hasn’t changed;
+                         * 0, Z hasnï¿½t changed;
                          * 1, Z contains the eigenvectors.
                         Array whose indexes range within [0..N-1, 0..N-1].
                         The eigenvectors are stored in the matrix columns.
@@ -102,7 +103,7 @@ namespace SharpMath.LinearAlgebra.AlgLib
             W       -   array of the eigenvalues found.
                         Array whose index ranges within [0..M-1].
             Z       -   if ZNeeded is equal to:
-                         * 0, Z hasn’t changed;
+                         * 0, Z hasnï¿½t changed;
                          * 1, Z contains eigenvectors.
                         Array whose indexes range within [0..N-1, 0..M-1].
                         The eigenvectors are stored in the matrix columns.
@@ -168,7 +169,7 @@ namespace SharpMath.LinearAlgebra.AlgLib
             W       -   array of the eigenvalues found.
                         Array whose index ranges within [0..I2-I1].
             Z       -   if ZNeeded is equal to:
-                         * 0, Z hasn’t changed;
+                         * 0, Z hasnï¿½t changed;
                          * 1, Z contains eigenvectors.
                         Array whose indexes range within [0..N-1, 0..I2-I1].
                         In that case, the eigenvectors are stored in the matrix columns.
@@ -232,7 +233,7 @@ namespace SharpMath.LinearAlgebra.AlgLib
             D       -   eigenvalues in ascending order.
                         Array whose index ranges within [0..N-1].
             Z       -   if ZNeeded is equal to:
-                         * 0, Z hasn’t changed;
+                         * 0, Z hasnï¿½t changed;
                          * 1, Z contains the eigenvectors.
                         Array whose indexes range within [0..N-1, 0..N-1].
                         The eigenvectors are stored in the matrix columns.
@@ -363,7 +364,7 @@ namespace SharpMath.LinearAlgebra.AlgLib
             W       -   array of the eigenvalues found.
                         Array whose index ranges within [0..M-1].
             Z       -   if ZNeeded is equal to:
-                         * 0, Z hasn’t changed;
+                         * 0, Z hasnï¿½t changed;
                          * 1, Z contains eigenvectors.
                         Array whose indexes range within [0..N-1, 0..M-1].
                         The eigenvectors are stored in the matrix columns.
@@ -503,7 +504,7 @@ namespace SharpMath.LinearAlgebra.AlgLib
             W       -   array of the eigenvalues found.
                         Array whose index ranges within [0..I2-I1].
             Z       -   if ZNeeded is equal to:
-                         * 0, Z hasn’t changed;
+                         * 0, Z hasnï¿½t changed;
                          * 1, Z contains eigenvectors.
                         Array whose indexes range within [0..N-1, 0..I2-I1].
                         In  that  case,  the eigenvectors are stored in the matrix
@@ -653,7 +654,7 @@ namespace SharpMath.LinearAlgebra.AlgLib
             D       -   eigenvalues in ascending order.
                         Array whose index ranges within [0..N-1].
             Z       -   if ZNeeded is equal to:
-                         * 0, Z hasn’t changed;
+                         * 0, Z hasnï¿½t changed;
                          * 1, Z contains the product of a given matrix (from the left)
                            and the eigenvectors matrix (from the right);
                          * 2, Z contains the eigenvectors.

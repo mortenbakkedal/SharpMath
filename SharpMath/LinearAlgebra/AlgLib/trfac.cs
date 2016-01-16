@@ -1,3 +1,4 @@
+// SharpMath - C# Mathematical Library
 /*************************************************************************
 Copyright (c) 1992-2007 The University of Tennessee. All rights reserved.
 

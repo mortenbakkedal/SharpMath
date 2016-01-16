@@ -1,3 +1,4 @@
+// SharpMath - C# Mathematical Library
 /*************************************************************************
 Copyright (c) 1992-2007 The University of Tennessee.  All rights reserved.
 
@@ -46,7 +47,7 @@ namespace SharpMath.LinearAlgebra.AlgLib
 
 
         Output parameters:
-            H   –   contains the matrix T.
+            H   ï¿½   contains the matrix T.
                     Array whose indexes range within [1..N, 1..N].
                     All elements below the blocks on the main diagonal are equal
                     to 0.
