@@ -155,8 +155,6 @@
     <Compile Include="Optimization\FunctionConstraint.cs" />
     <Compile Include="Optimization\FunctionConstraintCollection.cs" />
     <Compile Include="Optimization\FunctionEqualityConstraint.cs" />
-    <Compile Include="Optimization\FunctionMatrix.cs" />
-    <Compile Include="Optimization\FunctionVector.cs" />
     <Compile Include="Optimization\IEvaluator.cs" />
     <Compile Include="Optimization\IFunction.cs" />
     <Compile Include="Optimization\InconsistentConstraintException.cs" />
