@@ -49,9 +49,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\SharpMath.Optimization.Ipopt\SharpMath.Optimization.Ipopt.csproj">
       <Project>{bb89996e-8802-46d1-b16a-d8a55dd64176}</Project>
       <Name>SharpMath.Optimization.Ipopt</Name>
