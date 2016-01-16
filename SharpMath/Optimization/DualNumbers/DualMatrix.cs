@@ -1,8 +1,10 @@
-// Copyright (c) 2014 Morten Bakkedal
+// Copyright (c) 2016 Morten Bakkedal
 // This code is published under the MIT License.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace SharpMath.Optimization.DualNumbers
 {
@@ -12,8 +14,38 @@ namespace SharpMath.Optimization.DualNumbers
 	public sealed class DualMatrix
 	{
 		private DualNumber[,] entries;
+		//hashCode
 
-		private DualMatrix(int rows, int columns)
+		public DualMatrix(DualNumber[,] entries)
+		{
+			if (entries == null)
+			{
+				throw new ArgumentNullException();
+			}
+
+			for (int i = 0; i < entries.GetLength(0); i++)
+			{
+				for (int j = 0; j < entries.GetLength(1); j++)
+				{
+					if (entries[i, j] == null)
+					{
+						throw new ArgumentNullException();
+					}
+				}
+			}
+
+			this.entries = (DualNumber[,])entries.Clone();
+		}
+
+		// more overloads
+
+		public DualMatrix(int rows, int columns)
+			: this(rows, columns, 0.0)
+		{
+			// Dependence is the other way around here to ensure non-null initialization values.
+		}
+
+		public DualMatrix(int rows, int columns, DualNumber value)
 		{
 			if (rows < 0 || columns < 0)
 			{
@@ -21,11 +53,13 @@ namespace SharpMath.Optimization.DualNumbers
 			}
 
 			entries = new DualNumber[rows, columns];
-		}
-
-		public DualMatrix(DualNumber[,] entries)
-		{
-			entries = (DualNumber[,])entries.Clone();
+			for (int i = 0; i < rows; i++)
+			{
+				for (int j = 0; j < columns; j++)
+				{
+					entries[i, j] = value;
+				}
+			}
 		}
 
 		public DualMatrix(Matrix values)
@@ -40,6 +74,11 @@ namespace SharpMath.Optimization.DualNumbers
 
 		public DualMatrix(Matrix values, Matrix[] gradients, Matrix[,] hessians)
 		{
+			if (values == null || gradients == null || hessians == null)
+			{
+				throw new ArgumentNullException();
+			}
+
 			int rows = values.Rows;
 			int columns = values.Columns;
 
@@ -130,25 +169,35 @@ namespace SharpMath.Optimization.DualNumbers
 			}
 		}
 
-		public DualMatrix SetEntry(int row, int column, DualNumber t)
+		public DualMatrix SetEntry(int row, int column, DualNumber value)
 		{
+			if (row < 0 || row >= Rows || column < 0 || column >= Columns)
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			DualMatrix a = new DualMatrix(entries);
-			a[row, column] = t;
+			a[row, column] = value;
 
 			return a;
 		}
 
-		public DualMatrix SetMatrix(int row, int column, DualMatrix a)
+		public DualMatrix SetMatrix(int row, int column, DualMatrix subMatrix)
 		{
-			int n = a.Rows;
-			int m = a.Columns;
+			if (row < 0 || row + subMatrix.Rows > Rows || column < 0 || column + subMatrix.Columns > Columns)
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			int n = subMatrix.Rows;
+			int m = subMatrix.Columns;
 
 			DualMatrix b = new DualMatrix(entries);
 			for (int i = 0; i < n; i++)
 			{
 				for (int j = 0; j < m; j++)
 				{
-					b[row + i, column + j] = a[i, j];
+					b[row + i, column + j] = subMatrix[i, j];
 				}
 			}
 
@@ -157,6 +206,11 @@ namespace SharpMath.Optimization.DualNumbers
 
 		public DualMatrix GetMatrix(int row, int column, int rows, int columns)
 		{
+			if (rows < 0 || row < 0 || row + rows > Rows || columns < 0 || column < 0 || column + columns > Columns)
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			int n = rows;
 			int m = columns;
 
@@ -172,11 +226,12 @@ namespace SharpMath.Optimization.DualNumbers
 			return a;
 		}
 
-		public DualMatrix GetRow(int row)
+		public DualVector GetRow(int row)
 		{
 			int n = Columns;
 
-			return GetMatrix(row, 0, 1, n);
+			// Use conversion operator defined in DualVector.
+			return (DualVector)GetMatrix(row, 0, 1, n);
 		}
 
 		public DualVector GetColumn(int column)
@@ -184,7 +239,7 @@ namespace SharpMath.Optimization.DualNumbers
 			int n = Rows;
 
 			// Use conversion operator defined in DualVector.
-			return (DualVector)(GetMatrix(0, column, n, 1));
+			return (DualVector)GetMatrix(0, column, n, 1);
 		}
 
 		public Matrix GetValues()
@@ -251,6 +306,21 @@ namespace SharpMath.Optimization.DualNumbers
 			return (DualNumber[,])entries.Clone();
 		}
 
+		public DualNumber[][] ToJaggedArray()
+		{
+			DualNumber[][] entries = new DualNumber[Rows][];
+			for (int i = 0; i < Rows; i++)
+			{
+				entries[i] = new DualNumber[Columns];
+				for (int j = 0; j < Columns; j++)
+				{
+					entries[i][j] = this[i, j];
+				}
+			}
+
+			return entries;
+		}
+
 		public override string ToString()
 		{
 			return ToString(null);
@@ -268,6 +338,11 @@ namespace SharpMath.Optimization.DualNumbers
 
 		public static DualMatrix Identity(int rows, int columns)
 		{
+			if (rows < 0 || columns < 0)
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			int n = Math.Min(rows, columns);
 
 			DualMatrix a = new DualMatrix(rows, columns);
@@ -279,81 +354,113 @@ namespace SharpMath.Optimization.DualNumbers
 			return a;
 		}
 
-		public static DualMatrix Diagonal(DualNumber[] entries)
+		public static DualMatrix Diagonal(params DualNumber[] values)
 		{
-			int n = entries.Length;
+			if (values == null)
+			{
+				throw new ArgumentNullException();
+			}
+
+			int n = values.Length;
 
 			DualMatrix a = new DualMatrix(n, n);
 			for (int i = 0; i < n; i++)
 			{
-				a[i, i] = entries[i];
+				a[i, i] = values[i];
 			}
 
 			return a;
 		}
 
+		public static DualMatrix Diagonal(IEnumerable<DualNumber> values)
+		{
+			if (values == null)
+			{
+				throw new ArgumentNullException();
+			}
+
+			return Diagonal(values.ToArray());
+		}
+
 		public static DualMatrix Basis(int rows, int columns, int row, int column)
 		{
+			if (rows < 0 || row < 0 || row >= rows || columns < 0 || column < 0 || column >= columns)
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
 			DualMatrix a = new DualMatrix(rows, columns);
 			a[row, column] = 1.0;
 
 			return a;
 		}
 
-		public static DualMatrix Transpose(DualMatrix a)
+		public static DualMatrix Transpose(DualMatrix matrix)
 		{
-			int n = a.Columns;
-			int m = a.Rows;
+			if (matrix == null)
+			{
+				throw new ArgumentNullException();
+			}
+
+			int n = matrix.Columns;
+			int m = matrix.Rows;
 
 			DualMatrix b = new DualMatrix(n, m);
 			for (int i = 0; i < n; i++)
 			{
 				for (int j = 0; j < m; j++)
 				{
-					b[i, j] = a[j, i];
+					b[i, j] = matrix[j, i];
 				}
 			}
 
 			return b;
 		}
 
-		public static DualNumber Trace(DualMatrix a)
+		public static DualNumber Trace(DualMatrix matrix)
 		{
-			int n = a.Rows;
-
-			if (a.Columns != n)
+			if (matrix == null)
 			{
-				throw new ArgumentException("The matrix isn't a square matrix.");
+				throw new ArgumentNullException();
+			}
+
+			int n = matrix.Rows;
+
+			if (matrix.Columns != n)
+			{
+				throw new ArgumentException("Non-square matrix.");
 			}
 
 			DualNumber s = 0.0;
 			for (int i = 0; i < n; i++)
 			{
-				s += a[i, i];
+				s += matrix[i, i];
 			}
 
 			return s;
 		}
 
-		public static DualMatrix Inverse(DualMatrix a)
+		public static DualMatrix Inverse(DualMatrix matrix)
 		{
 			// Use direct computation for low dimenstions; LU decomposition otherwise.
-			return DualLUDecomposition.Inverse(a);
+			return DualLUDecomposition.Inverse(matrix);
 		}
 
-		public static DualNumber Determinant(DualMatrix a)
+		public static DualNumber Determinant(DualMatrix matrix)
 		{
 			// Use direct computation for low dimenstions; LU decomposition otherwise.
-			return DualLUDecomposition.Determinant(a);
+			return DualLUDecomposition.Determinant(matrix);
 		}
 
-		public static implicit operator DualMatrix(Matrix a)
+		public static implicit operator DualMatrix(Matrix matrix)
 		{
-			return new DualMatrix(a);
+			return new DualMatrix(matrix);
 		}
 
 		public static DualMatrix operator +(DualMatrix a, DualMatrix b)
 		{
+			// hertil!!!!!!!!!!!!!
+
 			int n = a.Rows;
 			int m = a.Columns;
 

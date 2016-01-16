@@ -1,58 +1,185 @@
-// Copyright (c) 2014 Morten Bakkedal
+// SharpMath - C# Mathematical Library
+// Copyright (c) 2016 Morten Bakkedal
 // This code is published under the MIT License.
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
+using System.Linq;
 
 namespace SharpMath
 {
 	[Serializable]
 	[DebuggerStepThrough]
-	public sealed class Vector
+	[DebuggerDisplay("{ToString(),nq}")]
+	public sealed class Vector : IEnumerable<double>, IEquatable<Vector>
 	{
-		private Matrix inner;
+		private double[] entries;
+		private int hashCode;
 
-		private Vector(Matrix inner)
+		public Vector(params double[] entries)
 		{
-			if (inner.Columns != 1)
+			if (entries == null)
 			{
-				throw new ArgumentException();
+				throw new ArgumentNullException();
 			}
 
-			this.inner = inner;
+			this.entries = (double[])entries.Clone();
 		}
 
-		public Vector(double[] entries)
+		public Vector(IEnumerable<double> entries)
 		{
-			int n = entries.Length;
-
-			double[,] a = new double[n, 1];
-			for (int i = 0; i < n; i++)
+			if (entries == null)
 			{
-				a[i, 0] = entries[i];
+				throw new ArgumentNullException();
 			}
 
-			inner = new Matrix(a);
+			this.entries = entries.ToArray();
+		}
+
+		public Vector(int length)
+		{
+			if (length < 0)
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			entries = new double[length];
+		}
+
+		public Vector(int length, double t)
+			: this(length)
+		{
+			for (int i = 0; i < length; i++)
+			{
+				this[i] = t;
+			}
 		}
 
 		public Vector SetEntry(int index, double t)
 		{
-			return new Vector(inner.SetEntry(index, 0, t));
+			if (index < 0 || index >= Length)
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			Vector a = new Vector(entries);
+			a[index] = t;
+
+			return a;
 		}
 
 		public Vector SetVector(int index, Vector a)
 		{
-			return new Vector(inner.SetMatrix(index, 0, a.inner));
+			if (index < 0 || index + a.Length > Length)
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			Vector b = new Vector(entries);
+			for (int i = 0; i < a.Length; i++)
+			{
+				b[index + i] = a[i];
+			}
+
+			return b;
 		}
 
 		public Vector GetVector(int index, int length)
 		{
-			return new Vector(inner.GetMatrix(index, 0, length, 1));
+			if (length < 0 || index < 0 || index + length > Length)
+			{
+				throw new ArgumentOutOfRangeException();
+			}
+
+			int n = length;
+
+			Vector a = new Vector(n);
+			for (int i = 0; i < n; i++)
+			{
+				a[i] = this[index + i];
+			}
+
+			return a;
 		}
+
+		public bool Equals(Vector other)
+		{
+			if (object.ReferenceEquals(other, null))
+			{
+				return false;
+			}
+
+			if (object.ReferenceEquals(this, other))
+			{
+				return true;
+			}
+
+			if (GetType() != other.GetType())
+			{
+				return false;
+			}
+
+			if (hashCode != 0 && other.hashCode != 0 && hashCode != other.hashCode)
+			{
+				// Can't be equal if they have different hash codes.
+				return false;
+			}
+
+			if (other.Length != Length)
+			{
+				return false;
+			}
+
+			for (int i = 0; i < Length; i++)
+			{
+				if (other[i] != this[i])
+				{
+					return false;
+				}
+			}
+
+			// No differences found.
+			return true;
+		}
+
+		public override bool Equals(object other)
+		{
+			return Equals(other as Vector);
+		}
+
+		public override int GetHashCode()
+		{
+			if (hashCode == 0)
+			{
+				hashCode = 23;
+				unchecked
+				{
+					for (int i = 0; i < Length; i++)
+					{
+						hashCode = hashCode * 31 + this[i].GetHashCode();
+					}
+				}
+			}
+
+			return hashCode;
+		}
+
+		public IEnumerator<double> GetEnumerator()
+		{
+			return ((IEnumerable<double>)entries).GetEnumerator();
+		}
+
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
+        }
 
 		public double[] ToArray()
 		{
-			return inner.ToLinearArray();
+			return (double[])entries.Clone();
 		}
 
 		public override string ToString()
@@ -62,102 +189,249 @@ namespace SharpMath
 
 		public string ToString(string format)
 		{
-			//string s = Matrix.Transpose(inner).ToString(format);
-			//return s.Substring(1, s.Length - 2);
-			return inner.ToString(format);
+			return "{ " + string.Join(", ", entries.Select(e => e.ToString(format, CultureInfo.InvariantCulture))) + " }";
 		}
 
 		public static Vector Zero(int length)
 		{
-			return new Vector(Matrix.Zero(length, 1));
+			return new Vector(length);
 		}
 
 		public static Vector Basis(int length, int index)
 		{
-			return new Vector(Matrix.Basis(length, 1, index, 0));
-		}
+			if (length < 0 || index < 0 || index >= length)
+			{
+				throw new ArgumentOutOfRangeException();
+			}
 
-		public static implicit operator Matrix(Vector a)
-		{
-			return a.inner;
+			Vector a = new Vector(length);
+			a[index] = 1.0;
+
+			return a;
 		}
 
 		public static explicit operator Vector(Matrix a)
 		{
+			if (a == null)
+			{
+				throw new ArgumentNullException();
+			}
+
 			if (a.Columns == 1)
 			{
-				return new Vector(a);
+				int n = a.Rows;
+
+				Vector b = new Vector(n);
+				for (int i = 0; i < n; i++)
+				{
+					b[i] = a[i, 0];
+				}
+
+				return b;
 			}
 
 			if (a.Rows == 1)
 			{
-				// Some copying overhead here.
-				return new Vector(Matrix.Transpose(a));
+				int n = a.Columns;
+
+				Vector b = new Vector(n);
+				for (int i = 0; i < n; i++)
+				{
+					b[i] = a[0, i];
+				}
+
+				return b;
 			}
 
-			throw new InvalidCastException("The matrix has no vector representation.");
+			throw new InvalidCastException("No vector representation of the matrix.");
 		}
 
 		public static Vector operator +(Vector a, Vector b)
 		{
-			return new Vector(a.inner + b.inner);
+			if (a == null || b == null)
+			{
+				throw new ArgumentNullException();
+			}
+
+			int n = a.Length;
+			if (b.Length != n)
+			{
+				throw new ArgumentException("Non-matching vector lengths.");
+			}
+
+			Vector c = new Vector(n);
+			for (int i = 0; i < n; i++)
+			{
+				c[i] = a[i] + b[i];
+			}
+
+			return c;
 		}
 
 		public static Vector operator +(Vector a, double t)
 		{
-			return new Vector(a.inner + t);
+			if (a == null)
+			{
+				throw new ArgumentNullException();
+			}
+
+			int n = a.Length;
+
+			Vector b = new Vector(n);
+			for (int i = 0; i < n; i++)
+			{
+				b[i] = a[i] + t;
+			}
+
+			return b;
 		}
 
 		public static Vector operator +(double t, Vector a)
 		{
-			return new Vector(t + a.inner);
+			return a + t;
 		}
 
 		public static Vector operator -(Vector a)
 		{
-			return new Vector(-a.inner);
+			return a * -1.0;
 		}
 
 		public static Vector operator -(Vector a, Vector b)
 		{
-			return new Vector(a.inner - b.inner);
+			if (a == null || b == null)
+			{
+				throw new ArgumentNullException();
+			}
+
+			int n = a.Length;
+
+			if (b.Length != n)
+			{
+				throw new ArgumentException("Non-matching vector lengths.");
+			}
+
+			Vector c = new Vector(n);
+			for (int i = 0; i < n; i++)
+			{
+				c[i] = a[i] - b[i];
+			}
+
+			return c;
+
 		}
 
 		public static Vector operator -(Vector a, double t)
 		{
-			return new Vector(a.inner - t);
+			return a + (-t);
 		}
 
 		public static Vector operator -(double t, Vector a)
 		{
-			return new Vector(t - a.inner);
+			if (a == null)
+			{
+				throw new ArgumentNullException();
+			}
+
+			int n = a.Length;
+
+			Vector b = new Vector(n);
+			for (int i = 0; i < n; i++)
+			{
+				b[i] = t - a[i];
+			}
+
+			return b;
+
 		}
 
 		public static Vector operator *(Matrix a, Vector b)
 		{
-			return new Vector(a * b.inner);
+			if (a == null || b == null)
+			{
+				throw new ArgumentNullException();
+			}
+
+			int n = a.Rows;
+			int m = a.Columns;
+
+			if (b.Length != m)
+			{
+				throw new ArgumentException("Non-matching matrix dimensions and vector length.");
+			}
+
+			Vector c = new Vector(n);
+			for (int i = 0; i < n; i++)
+			{
+				double s = 0.0;
+				for (int j = 0; j < m; j++)
+				{
+					s += a[i, j] * b[j];
+				}
+
+				c[i] = s;
+			}
+
+			return c;
 		}
 
 		public static Vector operator *(Vector a, double t)
 		{
-			return new Vector(a.inner * t);
+			if (a == null)
+			{
+				throw new ArgumentNullException();
+			}
+
+			int n = a.Length;
+
+			Vector b = new Vector(n);
+			for (int i = 0; i < n; i++)
+			{
+				b[i] = a[i] * t;
+			}
+
+			return b;
 		}
 
 		public static Vector operator *(double t, Vector a)
 		{
-			return new Vector(t * a.inner);
+			return a * t;
 		}
 
 		public static Vector operator /(Vector a, double t)
 		{
-			return new Vector(a.inner / t);
+			return a * (1.0 / t);
+		}
+
+		public static bool operator ==(Vector a, Vector b)
+		{
+			if (object.ReferenceEquals(a, null))
+			{
+				if (object.ReferenceEquals(b, null))
+				{
+					return true;
+				}
+
+				return false;
+			}
+
+			return a.Equals(b);
+		}
+
+		public static bool operator !=(Vector a, Vector b)
+		{
+			return !(a == b);
 		}
 
 		public double this[int index]
 		{
 			get
 			{
-				return inner[index, 0];
+				return entries[index];
+			}
+			private set
+			{
+				// This property is kept private. The class is immutable by design.
+				entries[index] = value;
 			}
 		}
 
@@ -165,7 +439,7 @@ namespace SharpMath
 		{
 			get
 			{
-				return inner.Rows;
+				return entries.Length;
 			}
 		}
 	}

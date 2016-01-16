@@ -11,6 +11,8 @@ namespace SharpMath.Samples
 	{
 		public static void Main(string[] args)
 		{
+			//"// SharpMath - C# Mathematical Library"
+
 			//ImportIpopt.Import();
 			OptimizerSamples.Sample2();
 
