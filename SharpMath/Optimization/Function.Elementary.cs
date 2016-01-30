@@ -164,7 +164,7 @@ namespace SharpMath.Optimization
 
 			protected override Function ComputePartialValue(IPartialEvaluator evaluator)
 			{
-				return Function.Exp(f.PartialValue(evaluator));
+				return Function.Exp(f.Substitute(evaluator));
 			}
 		}
 
@@ -190,7 +190,7 @@ namespace SharpMath.Optimization
 
 			protected override Function ComputePartialValue(IPartialEvaluator evaluator)
 			{
-				return Function.Log(f.PartialValue(evaluator));
+				return Function.Log(f.Substitute(evaluator));
 			}
 		}
 
@@ -217,7 +217,7 @@ namespace SharpMath.Optimization
 
 			protected override Function ComputePartialValue(IPartialEvaluator evaluator)
 			{
-				return Function.Sqr(f.PartialValue(evaluator));
+				return Function.Sqr(f.Substitute(evaluator));
 			}
 		}
 
@@ -244,7 +244,7 @@ namespace SharpMath.Optimization
 
 			protected override Function ComputePartialValue(IPartialEvaluator evaluator)
 			{
-				return Function.Sqrt(f.PartialValue(evaluator));
+				return Function.Sqrt(f.Substitute(evaluator));
 			}
 		}
 
@@ -271,7 +271,7 @@ namespace SharpMath.Optimization
 
 			protected override Function ComputePartialValue(IPartialEvaluator evaluator)
 			{
-				return Function.Pow(f.PartialValue(evaluator), g.PartialValue(evaluator));
+				return Function.Pow(f.Substitute(evaluator), g.Substitute(evaluator));
 			}
 		}
 
@@ -299,7 +299,7 @@ namespace SharpMath.Optimization
 
 			protected override Function ComputePartialValue(IPartialEvaluator evaluator)
 			{
-				return Function.Pow(f.PartialValue(evaluator), a);
+				return Function.Pow(f.Substitute(evaluator), a);
 			}
 		}
 
@@ -337,7 +337,7 @@ namespace SharpMath.Optimization
 
 			protected override Function ComputePartialValue(IPartialEvaluator evaluator)
 			{
-				return Function.Cos(f.PartialValue(evaluator));
+				return Function.Cos(f.Substitute(evaluator));
 			}
 		}
 
@@ -375,7 +375,7 @@ namespace SharpMath.Optimization
 
 			protected override Function ComputePartialValue(IPartialEvaluator evaluator)
 			{
-				return Function.Sin(f.PartialValue(evaluator));
+				return Function.Sin(f.Substitute(evaluator));
 			}
 		}
 	}

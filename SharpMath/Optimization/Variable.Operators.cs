@@ -13,10 +13,10 @@ namespace SharpMath.Optimization
 			return new VariableAssignment(variable, value);
 		}
 
-		public static VariableFunctionAssignment operator |(Variable variable, Function function)
+		/*public static VariableFunctionAssignment operator |(Variable variable, Function function)
 		{
 			return new VariableFunctionAssignment(variable, function);
-		}
+		}*/
 
 		public static VariableConstraint operator <=(Variable variable, double value)
 		{

@@ -55,7 +55,7 @@ namespace SharpMath.Optimization
 
 			protected override Function ComputePartialValue(IPartialEvaluator evaluator)
 			{
-				return Function.Positive(f.PartialValue(evaluator));
+				return Function.Positive(f.Substitute(evaluator));
 			}
 		}
 
@@ -94,7 +94,7 @@ namespace SharpMath.Optimization
 
 			protected override Function ComputePartialValue(IPartialEvaluator evaluator)
 			{
-				return Function.Step(f.PartialValue(evaluator));
+				return Function.Step(f.Substitute(evaluator));
 			}
 		}
 
@@ -142,7 +142,7 @@ namespace SharpMath.Optimization
 
 			protected override Function ComputePartialValue(IPartialEvaluator evaluator)
 			{
-				return Function.Abs(f.PartialValue(evaluator));
+				return Function.Abs(f.Substitute(evaluator));
 			}
 		}
 

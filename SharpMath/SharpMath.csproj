@@ -78,6 +78,9 @@
     <Compile Include="LinearAlgebra\EigenvalueDecomposition.cs" />
     <Compile Include="LinearAlgebra\LUDecomposition.cs" />
     <Compile Include="Matrix.cs" />
+    <Compile Include="Optimization\IVariableAssignment.cs" />
+    <Compile Include="Optimization\IVariableSubstitution.cs" />
+    <Compile Include="Optimization\VariableSubstitution.cs" />
     <Compile Include="Plotting\Axes.cs" />
     <Compile Include="Plotting\DataPlot.cs" />
     <Compile Include="Plotting\FunctionPlot.cs" />
@@ -179,7 +182,6 @@
     <Compile Include="Optimization\VariableConstraintCollection.cs" />
     <Compile Include="Optimization\VariableEqualityConstraint.cs" />
     <Compile Include="Optimization\VariableEqualityConstraintCollection.cs" />
-    <Compile Include="Optimization\VariableFunctionAssignment.cs" />
     <Compile Include="Optimization\VariableNotAssignedException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RootFinder.cs" />

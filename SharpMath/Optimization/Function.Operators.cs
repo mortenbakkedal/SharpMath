@@ -352,7 +352,7 @@ namespace SharpMath.Optimization
 
 			protected override Function ComputePartialValue(IPartialEvaluator evaluator)
 			{
-				return f.PartialValue(evaluator) + g.PartialValue(evaluator);
+				return f.Substitute(evaluator) + g.Substitute(evaluator);
 			}
 		}
 
@@ -379,7 +379,7 @@ namespace SharpMath.Optimization
 
 			protected override Function ComputePartialValue(IPartialEvaluator evaluator)
 			{
-				return f.PartialValue(evaluator) - g.PartialValue(evaluator);
+				return f.Substitute(evaluator) - g.Substitute(evaluator);
 			}
 		}
 
@@ -405,7 +405,7 @@ namespace SharpMath.Optimization
 
 			protected override Function ComputePartialValue(IPartialEvaluator evaluator)
 			{
-				return -f.PartialValue(evaluator);
+				return -f.Substitute(evaluator);
 			}
 		}
 
@@ -432,7 +432,7 @@ namespace SharpMath.Optimization
 
 			protected override Function ComputePartialValue(IPartialEvaluator evaluator)
 			{
-				return f.PartialValue(evaluator) * g.PartialValue(evaluator);
+				return f.Substitute(evaluator) * g.Substitute(evaluator);
 			}
 		}
 
@@ -460,7 +460,7 @@ namespace SharpMath.Optimization
 
 			protected override Function ComputePartialValue(IPartialEvaluator evaluator)
 			{
-				return a * f.PartialValue(evaluator);
+				return a * f.Substitute(evaluator);
 			}
 		}
 
@@ -488,7 +488,7 @@ namespace SharpMath.Optimization
 
 			protected override Function ComputePartialValue(IPartialEvaluator evaluator)
 			{
-				return f.PartialValue(evaluator) / g.PartialValue(evaluator);
+				return f.Substitute(evaluator) / g.Substitute(evaluator);
 			}
 		}
 
@@ -517,7 +517,7 @@ namespace SharpMath.Optimization
 
 			protected override Function ComputePartialValue(IPartialEvaluator evaluator)
 			{
-				return a / f.PartialValue(evaluator);
+				return a / f.Substitute(evaluator);
 			}
 		}
 

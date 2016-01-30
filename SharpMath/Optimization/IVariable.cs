@@ -1,5 +1,5 @@
 // SharpMath - C# Mathematical Library
-// Copyright (c) 2014 Morten Bakkedal
+// Copyright (c) 2016 Morten Bakkedal
 // This code is published under the MIT License.
 
 using System;
@@ -7,13 +7,9 @@ using System;
 namespace SharpMath.Optimization
 {
 	/// <summary>
-	/// An interface representing a variable.
+	/// Empty marker interface representing a variable.
 	/// </summary>
-	public interface IVariable
+	public interface IVariable : IFunction
 	{
-		string Name
-		{
-			get;
-		}
 	}
 }

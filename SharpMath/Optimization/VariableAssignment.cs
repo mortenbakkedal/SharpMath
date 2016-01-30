@@ -10,10 +10,9 @@ namespace SharpMath.Optimization
 {
 	[Serializable]
 	[DebuggerStepThrough]
-	public class VariableAssignment //: VariableFunctionAssignment
+	public class VariableAssignment : IVariableAssignment
 	{
 		public VariableAssignment(Variable variable, double value)
-			//: base(variable, value)
 		{
 			Variable = variable;
 			Value = value;
@@ -42,11 +41,11 @@ namespace SharpMath.Optimization
 			return assignments.ToArray();
 		}
 
-		public static implicit operator VariableFunctionAssignment(VariableAssignment assignment)
+		/*public static implicit operator VariableFunctionAssignment(VariableAssignment assignment)
 		{
 			// Allow a constant value assignment to be used in Function.Substitute.
 			return new VariableFunctionAssignment(assignment.Variable, assignment.Value);
-		}
+		}*/
 
 		public Variable Variable
 		{
@@ -58,6 +57,23 @@ namespace SharpMath.Optimization
 		{
 			get;
 			private set;
+		}
+		
+
+		public IFunction SubstitutionFunction
+		{
+			get
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		IVariable IVariableAssignment.Variable
+		{
+			get
+			{
+				throw new NotImplementedException();
+			}
 		}
 	}
 }

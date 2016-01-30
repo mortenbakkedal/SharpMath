@@ -190,6 +190,11 @@ namespace SharpMath.Optimization
 			return sb.ToString();
 		}
 
+		public bool Equals(IPoint other)
+		{
+			throw new NotImplementedException();
+		}
+
 		public double this[Variable variable]
 		{
 			get
@@ -234,6 +239,14 @@ namespace SharpMath.Optimization
 		{
 			get;
 			private set;
+		}
+
+		public IEnumerable<IVariableAssignment> Assignments
+		{
+			get
+			{
+				throw new NotImplementedException();
+			}
 		}
 	}
 }

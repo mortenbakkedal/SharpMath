@@ -12,7 +12,7 @@ namespace SharpMath.Optimization
 	/// of static method for performing operations on functions.
 	/// </summary>
 	[Serializable]
-	public abstract partial class Function
+	public abstract partial class Function : IFunction
 	{
 		private Dictionary<Variable, Function> derivatives;
 
@@ -41,7 +41,56 @@ namespace SharpMath.Optimization
 			// Consider removing this extra call?
 			return evaluator.Evaluate(this);
 		}
-				
+
+		public double Value(IEnumerable<IVariableAssignment> assignments)
+		{
+			return Value(assignments);
+		}
+
+		/// <summary>
+		/// Replaces a number of variables by fixed values. Returns a function of the remaining variables.
+		/// </summary>
+		public Function Substitute(IPoint point)
+		{
+			return Evaluator.PartialEvaluate(point, this);
+		}
+
+		/// <summary>
+		/// Replaces a number of variables by fixed values. Returns a function of the remaining variables.
+		/// </summary>
+		public Function Substitute(params VariableAssignment[] assignments)
+		{
+			return Substitute(new Point(assignments));
+		}
+
+		/// <summary>
+		/// Replaces a number of variables by fixed values. Returns a function of the remaining variables.
+		/// </summary>
+		public Function Substitute(IPartialEvaluator evaluator)
+		{
+			return evaluator.Evaluate(this);
+		}
+
+		/*/// <summary>
+		/// Substitutes a number of variables by function values. The chain rule is applied. Returns a function of the remaining variables and the variables introduced implicitly through the substitution.
+		/// </summary>
+		public Function Substitute(params VariableFunctionAssignment[] assignments)
+		{
+			throw new NotImplementedException();
+			//return PartialValue(new Point(assignments));
+		}*/
+
+		public IFunction Substitute(IEnumerable<IVariableSubstitution> substitutions)
+		{
+			return Substitute(substitutions);
+		}
+
+
+		public IFunction Derivative(IVariable variable)
+		{
+			throw new NotImplementedException();
+		}
+
 		/// <summary>
 		/// Evaluates the function by assigning values to the variables. Override this to implement.
 		/// </summary>
@@ -117,48 +166,6 @@ namespace SharpMath.Optimization
 		/// Computes the partial derivative with respect to a variable. Override this to implement.
 		/// </summary>
 		protected abstract Function ComputeDerivative(Variable variable);
-
-		/// <summary>
-		/// Replaces a number of variables by fixed values. Returns a function of the remaining variables.
-		/// </summary>
-		public Function PartialValue(IPoint point)
-		{
-			return Evaluator.PartialEvaluate(point, this);
-		}
-
-		/// <summary>
-		/// Replaces a number of variables by fixed values. Returns a function of the remaining variables.
-		/// </summary>
-		public Function PartialValue(params VariableAssignment[] assignments)
-		{
-			return PartialValue(new Point(assignments));
-		}
-
-		/// <summary>
-		/// Replaces a number of variables by fixed values. Returns a function of the remaining variables.
-		/// </summary>
-		public Function PartialValue(IPartialEvaluator evaluator)
-		{
-			return evaluator.Evaluate(this);
-		}
-
-		/// <summary>
-		/// Substitutes a number of variables by function values. The chain rule is applied. Returns a function of the remaining variables and the variables introduced implicitly through the substitution.
-		/// </summary>
-		public Function Substitute(params VariableFunctionAssignment[] assignments)
-		{
-			throw new NotImplementedException();
-			//return PartialValue(new Point(assignments));
-		}
-
-		/// <summary>
-		/// Substitutes a number of variables by function values. The chain rule is applied. Returns a function of the remaining variables and the variables introduced implicitly through the substitution.
-		/// </summary>
-		public Function Substitute(IPartialEvaluator evaluator)
-		{
-			throw new NotImplementedException();
-			//return evaluator.Evaluate(this);
-		}
 
 		/// <summary>
 		/// Replaces a number of variables by fixed values. Override this to implement.
